@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+  api:
+    build: ./api
+    restart: always
+    ports:
+      - '5000:5000'
+    depends_on:
+      - postgres
+    volumes:
+      - /app/node_modules
+      - ./api:/app
+    environment:
+      SECRET_KEY: random_secret_key_65478989_4324324
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PORT: '5432'
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8888:8080'
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
