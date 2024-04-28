@@ -1,3 +1,3 @@
-export const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:3000";
+export const API_URL = process.env.REACT_APP_API_HOST;
 export const pageLimit = 10;
-export const filter = "active";
+export const filter = 'active';

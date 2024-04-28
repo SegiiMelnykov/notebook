@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import ApiError from "../../error/ApiError";
-import { Country } from "../../models/geo";
+import { NextFunction, Request, Response } from 'express';
+import ApiError from '../../error/ApiError';
+import { Country } from '../../models/geo';
 
 class CountryController {
   async getCountries(req: Request, res: Response, next: NextFunction) {

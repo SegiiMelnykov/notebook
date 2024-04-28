@@ -1,19 +1,15 @@
 version: '3'
 
 services:
-  frontend:
-    build: ./frontend
+  next:
+    build: ./next
     restart: always
-    ports:
-      - '3000:3000'
     volumes:
       - /app/node_modules
-      - ./frontend:/app
+      - ./next:/app
   api:
     build: ./api
     restart: always
-    ports:
-      - '5000:5000'
     depends_on:
       - postgres
     volumes:
@@ -29,8 +25,6 @@ services:
   adminer:
     image: adminer
     restart: always
-    ports:
-      - '8888:8080'
   postgres:
     image: postgres:latest
     restart: always
@@ -38,6 +32,16 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  nginx:
+    image: nginx
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - '9000:9000'
+    depends_on:
+      - api
+      - adminer
 
 volumes:
   postgres_data:

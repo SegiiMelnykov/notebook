@@ -8,7 +8,7 @@ import { API_URL } from 'src/utils/consts';
 export const notesApi = createApi({
   reducerPath: 'notesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: API_URL + '/api',
+    baseUrl: '/api',
     prepareHeaders: (headers, { getState }: { getState: () => any }) => {
       // By default, if we have a token in the store, let's use that for authenticated requests
       const token = getState().auth.token;
