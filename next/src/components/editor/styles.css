@@ -1,0 +1,25 @@
+.label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.editor {
+  margin-top: 1rem;
+  min-height: 500px;
+
+  .ql-toolbar {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-color: rgba(145, 158, 171, 0.2);
+  }
+
+  .ql-container {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-color: rgba(145, 158, 171, 0.2);
+
+    .ql-editor {
+      min-height: calc(500px + 45px);
+    }
+  }
+}

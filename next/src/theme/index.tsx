@@ -1,3 +1,5 @@
+'use client';
+
 import merge from 'lodash/merge';
 import { useMemo } from 'react';
 // @mui
@@ -7,7 +9,8 @@ import {
   ThemeProvider as MuiThemeProvider,
   ThemeOptions,
 } from '@mui/material/styles';
-
+// locales
+import { useLocales } from '@/locales';
 // components
 import { useSettingsContext } from '@/components/settings';
 // system
@@ -29,6 +32,8 @@ type Props = {
 };
 
 export default function ThemeProvider({ children }: Props) {
+  const { currentLang } = useLocales();
+
   const settings = useSettingsContext();
 
   const darkModeOption = darkMode(settings.themeMode);
@@ -84,7 +89,10 @@ export default function ThemeProvider({ children }: Props) {
     contrastOption.components,
   );
 
-  const themeWithLocale = useMemo(() => createTheme(theme), [theme]);
+  const themeWithLocale = useMemo(
+    () => createTheme(theme, currentLang.systemValue),
+    [currentLang.systemValue, theme],
+  );
 
   return (
     <MuiThemeProvider theme={themeWithLocale}>

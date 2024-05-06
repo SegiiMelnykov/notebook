@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { FormValuesProps } from 'src/sections/auth/auth-form';
-import { User } from 'src/types/user';
-import { API_URL } from 'src/utils/consts';
+import { FormValuesProps } from '@/sections/auth/auth-form';
+import { User } from '@/types/user';
+import { API_URL } from '@/utils/consts';
 
 export const authApi = createApi({
   reducerPath: 'authApi',

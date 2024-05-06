@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { TNoteForm } from 'src/sections/note/add-edit-note-title-form';
-import { TNote, TNoteExtendedForm, TReorderItem } from 'src/types/notes';
-import { TTodo } from 'src/types/todo';
+import { TNoteForm } from '@/sections/note/add-edit-note-title-form';
+import { TNote, TNoteExtendedForm, TReorderItem } from '@/types/notes';
+import { TTodo } from '@/types/todo';
 
-import { API_URL } from 'src/utils/consts';
+import { API_URL } from '@/utils/consts';
 
 export const notesApi = createApi({
   reducerPath: 'notesApi',
