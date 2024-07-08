@@ -26,7 +26,7 @@ WORKDIR /app
 EXPOSE 3000
 
 # Copy only the build artifacts from the build stage
-COPY --from=build /app/.next ./.next
+COPY . .
 
 # Specify the command to serve the built application
 CMD ["npm", "run", "start"]  
