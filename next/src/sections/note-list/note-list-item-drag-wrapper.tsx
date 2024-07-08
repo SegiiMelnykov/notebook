@@ -34,4 +34,6 @@ const NoteListItemDragWrapper = React.forwardRef(
   },
 );
 
+NoteListItemDragWrapper.displayName = 'NoteListItemDragWrapper';
+
 export default NoteListItemDragWrapper;

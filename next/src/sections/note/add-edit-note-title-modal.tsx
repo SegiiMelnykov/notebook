@@ -1,7 +1,7 @@
 //--Types
 
-import { TNote } from "src/types/notes";
-import AddEditNoteForm from "./add-edit-note-title-form";
+import { TNote } from '@/types/notes';
+import AddEditNoteForm from './add-edit-note-title-form';
 
 type Props = {
   onclose: () => void;
@@ -17,7 +17,7 @@ export default function AddEditNoteModal({
   return (
     <AddEditNoteForm
       onclose={onclose}
-      parentId={parentId ?? ""}
+      parentId={parentId ?? ''}
       value={value}
     />
   );

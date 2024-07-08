@@ -2,6 +2,7 @@
 import { useAppSelector } from '@/hooks/use-redux';
 import NoteView from '@/sections/note/view/note-view';
 import { useGetOneNoteQuery } from '@/store/notes/api';
+
 // sections
 
 // ----------------------------------------------------------------------
