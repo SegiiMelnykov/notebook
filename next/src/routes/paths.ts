@@ -12,6 +12,7 @@ export const paths = {
   '403': '/403',
   '404': '/404',
   '500': '/500',
+  profile: '/profile',
   notes: ROOT.NOTES,
   note: (id: string) => `${ROOT.NOTES}/${id}`,
 };

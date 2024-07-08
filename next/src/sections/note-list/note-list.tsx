@@ -44,11 +44,6 @@ export default function NoteList({ list, count }: TProps) {
     reorder(listState, result, setListState);
   };
 
-  // console.log(
-  //   "list",
-  //   list.map((item) => ({ title: item.title, order: item.sortOrder })),
-  // );
-
   return (
     <>
       {!!count && (

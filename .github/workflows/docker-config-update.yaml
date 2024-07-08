@@ -1,0 +1,33 @@
+name: Update docker configs at the server
+
+on:
+  push:
+    paths:
+      - 'docker-compose.pub.yml'
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install SSH client
+        run: sudo apt-get update && sudo apt-get install -y openssh-client
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DIGITALOCEAN_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DIGITALOCEAN_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Update docker compose file
+        run: |
+          ssh -T root@${{ secrets.DIGITALOCEAN_HOST }} << 'EOF'
+            cd /var/www/test
+            git pull
+          EOF

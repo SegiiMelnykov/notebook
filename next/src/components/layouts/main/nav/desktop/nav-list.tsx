@@ -28,7 +28,7 @@ export default function NavList({ item, offsetTop }: NavListProps) {
 
   const { path, children } = item;
 
-  const active = useActiveLink(path, false);
+  const active = useActiveLink(path, true);
 
   const externalLink = path.includes('http');
 

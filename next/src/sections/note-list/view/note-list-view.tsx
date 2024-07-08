@@ -7,7 +7,7 @@ import AddEditNoteModal from '@/sections/note/add-edit-note-title-modal';
 import NoteList from '../note-list';
 import NoteListTollbar from '../note-list-toolbar';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { pageLimit } from '@/utils/consts';
+import { perPageLimit } from '@/utils/consts';
 import { useResponsive } from '@/hooks/use-responsive';
 
 // sections
@@ -25,7 +25,7 @@ export default function NoteListView({ parentId = '' }: TProps) {
   const router = useRouter();
   const { data, isSuccess } = useGetNotesQuery(
     {
-      limit: searchParams.get('limit') ?? pageLimit,
+      limit: searchParams.get('limit') ?? perPageLimit,
       page: searchParams.get('page') ?? 1,
       filter: searchParams.get('filter') ?? 'active',
       parentId: parentId,
@@ -41,7 +41,7 @@ export default function NoteListView({ parentId = '' }: TProps) {
         data?.count /
           (searchParams.get('limit')
             ? Number(searchParams.get('limit'))
-            : pageLimit),
+            : perPageLimit),
       )
     : 0;
 

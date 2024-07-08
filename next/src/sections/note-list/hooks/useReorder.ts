@@ -3,13 +3,13 @@ import { DropResult } from '@hello-pangea/dnd';
 import { useSearchParams } from 'next/navigation';
 import { useReorderListMutation } from '@/store/notes/api';
 import { TNote } from '@/types/notes';
-import { pageLimit } from '@/utils/consts';
+import { perPageLimit } from '@/utils/consts';
 
 export const useReorder = () => {
   const [reorderList, { isLoading }] = useReorderListMutation();
   const searchParams = useSearchParams();
   const page = searchParams.get('page') ?? 1;
-  const limit = searchParams.get('limit') ?? pageLimit;
+  const limit = searchParams.get('limit') ?? perPageLimit;
   const reorder = (
     list: TNote[],
     result: DropResult,

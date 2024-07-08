@@ -6,7 +6,6 @@ import React from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 
 import NoteListItem from './note-list-item';
-import { useRouter } from 'next/navigation';
 
 // sections
 
@@ -19,12 +18,6 @@ type Props = {
 
 const NoteListItemDragWrapper = React.forwardRef(
   ({ value, index }: Props, ref) => {
-    const navigeate = useRouter();
-
-    const handleCardClick = () => {
-      navigeate.push(paths.note(value.id));
-    };
-
     return (
       <Draggable key={value.id} draggableId={value.id} index={index}>
         {(provided) => (

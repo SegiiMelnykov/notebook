@@ -18,4 +18,9 @@ export const navConfig = [
     path: paths.notes,
     // children: [{ items: [{ title: "All Notes", path: paths.notes }] }],
   },
+  {
+    title: 'Profile',
+    icon: <Iconify icon='solar:home-2-bold-duotone' />,
+    path: paths.profile,
+  },
 ];

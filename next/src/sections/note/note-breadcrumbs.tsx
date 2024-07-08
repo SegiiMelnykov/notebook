@@ -31,8 +31,7 @@ export default function NoteBreadcrumbs({ note }: TProps) {
         {breadcrumbs?.map((breadcrumb) => {
           if (breadcrumb.id === note.id) {
             return (
-              <span key={breadcrumb.id}>
-                {' '}
+              <span key={breadcrumb.id} title={breadcrumb.title}>
                 {breadcrumb.title.length > 10
                   ? breadcrumb.title.slice(0, 15).trim() + '...'
                   : breadcrumb.title}
@@ -44,6 +43,7 @@ export default function NoteBreadcrumbs({ note }: TProps) {
               component={Link}
               key={breadcrumb.id}
               href={paths.note(breadcrumb.id)}
+              title={breadcrumb.title}
               sx={{
                 textDecoration: 'none',
                 '&::after': { content: '"/"', ml: 0.5 },

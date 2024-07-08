@@ -1,10 +1,8 @@
-import { NextFunction, Response, Request } from "express";
-import ApiError from "../error/ApiError";
-import { startOfDay } from "date-fns";
+import { NextFunction, Response, Request } from 'express';
+import ApiError from '../error/ApiError';
 
-import { authMiddleware } from "../types/user";
-import { Note, NoteModel, ToDo } from "../models/note";
-import { Op } from "sequelize";
+import { authMiddleware } from '../types/user';
+import { Note, NoteModel, ToDo } from '../models/note';
 
 class HomeController {
   async getAllByLevelNested(
@@ -14,7 +12,7 @@ class HomeController {
   ) {
     try {
       const userId = req.user.id;
-      console.log("userId", userId);
+      console.log('userId', userId);
 
       // Retrieve all notes for the user with the specified userId
       const allNotes = await Note.findAll({
@@ -23,18 +21,16 @@ class HomeController {
           completed: false,
           deletedAt: null,
         },
-        order: [["sortOrder", "ASC"]],
+        order: [['sortOrder', 'ASC']],
       });
 
       // Create a function to get nested notes by parent ID
-      const getNestedNotes = (notes: NoteModel[], parentId = "") => {
+      const getNestedNotes = (notes: NoteModel[], parentId = '') => {
         return notes
           .filter((note) => note.parentId === parentId)
           .map((note) => ({
             ...note.get({ plain: true }),
-            children: !note.get({ plain: true }).homeHidden
-              ? getNestedNotes(notes, note.id)
-              : [],
+            children: getNestedNotes(notes, note.id),
           }));
       };
 

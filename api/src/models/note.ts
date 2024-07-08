@@ -21,6 +21,7 @@ export const Note = sequelize.define<NoteModel>('note', {
   parentId: { type: DataTypes.STRING },
   title: { type: DataTypes.STRING },
   content: { type: DataTypes.TEXT },
+  notesPerPage: { type: DataTypes.INTEGER, defaultValue: 0 },
   userId: { type: DataTypes.INTEGER },
   completed: { type: DataTypes.BOOLEAN, defaultValue: false },
   deletedAt: { type: DataTypes.DATE },

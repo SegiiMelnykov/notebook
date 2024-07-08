@@ -19,7 +19,7 @@ export default function NoteActionBlock({ note }: TProps) {
   return (
     <div
       onClick={(e) => {
-        e.stopPropagation();
+        e.preventDefault();
       }}
     >
       {!note.deletedAt && (

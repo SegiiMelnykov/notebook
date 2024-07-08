@@ -1,11 +1,11 @@
-import { NextFunction, Response, Request } from "express";
-import ApiError from "../../error/ApiError";
+import { NextFunction, Response, Request } from 'express';
+import ApiError from '../../error/ApiError';
 
-import { authMiddleware } from "../../types/user";
-import { Note } from "../../models/note";
-import { TNoteCreate, TReorderItem } from "types/note";
-import { Op } from "sequelize";
-import { getBreadcrumbs } from "../../utils/getbreadcrumbs";
+import { authMiddleware } from '../../types/user';
+import { Note } from '../../models/note';
+import { TNoteCreate, TReorderItem } from 'types/note';
+import { Op } from 'sequelize';
+import { getBreadcrumbs } from '../../utils/getbreadcrumbs';
 
 class NotesController {
   async create(
@@ -15,7 +15,7 @@ class NotesController {
   ) {
     try {
       const {
-        parentId = "",
+        parentId = '',
         title,
         content,
         completed,
@@ -51,19 +51,19 @@ class NotesController {
       const {
         page = 1,
         limit = 10,
-        filter = "active",
-        parentId = "",
+        filter = 'active',
+        parentId = '',
       } = req.query;
       let where = {};
 
       switch (filter) {
-        case "completed":
+        case 'completed':
           where = { completed: true, deletedAt: null };
           break;
-        case "active":
+        case 'active':
           where = { completed: false, deletedAt: null };
           break;
-        case "deleted":
+        case 'deleted':
           where = { deletedAt: { [Op.ne]: null } };
           break;
       }
@@ -73,7 +73,7 @@ class NotesController {
         where: { userId, parentId: parentId as string, ...where },
         limit: +limit,
         offset,
-        order: [["sortOrder", "ASC"]],
+        order: [['sortOrder', 'ASC']],
       });
       return res.json({ count, notes });
     } catch (err) {
@@ -92,7 +92,7 @@ class NotesController {
 
       const { count, rows: notes } = await Note.findAndCountAll({
         where: { userId, completed: false, deletedAt: null },
-        order: [["id", "DESC"]],
+        order: [['id', 'DESC']],
       });
       return res.json({ count, notes });
     } catch (err) {
@@ -126,7 +126,7 @@ class NotesController {
         { where: { id } },
       );
 
-      return res.json("deleted");
+      return res.json('deleted');
     } catch (err) {
       console.log(err);
       next(ApiError.badRequest(err));
@@ -143,13 +143,13 @@ class NotesController {
 
       const note = await Note.findByPk(id);
       if (!note) {
-        return next(ApiError.badRequest("Note not found"));
+        return next(ApiError.badRequest('Note not found'));
       }
       note.title = title;
       note.content = content;
       await note.save();
 
-      return res.json("ok");
+      return res.json('ok');
     } catch (err) {
       console.log(err);
       next(ApiError.badRequest(err));
@@ -165,7 +165,7 @@ class NotesController {
     const note = await Note.findByPk(id);
 
     if (!note) {
-      return next(ApiError.badRequest("Note not found"));
+      return next(ApiError.badRequest('Note not found'));
     }
 
     const breadcrumbs = (await getBreadcrumbs(id)).reverse();
@@ -173,7 +173,7 @@ class NotesController {
     return res.json(breadcrumbs);
   }
 
-  async complite(
+  async complete(
     req: Request & authMiddleware,
     res: Response,
     next: NextFunction,
@@ -181,22 +181,22 @@ class NotesController {
     const { id } = req.params;
     const note = await Note.findByPk(id);
     if (!note) {
-      return next(ApiError.badRequest("Note not found"));
+      return next(ApiError.badRequest('Note not found'));
     }
     note.completed = !note.completed;
     await note.save();
-    return res.json("ok");
+    return res.json('ok');
   }
 
   async hide(req: Request & authMiddleware, res: Response, next: NextFunction) {
     const { id } = req.params;
     const note = await Note.findByPk(id);
     if (!note) {
-      return next(ApiError.badRequest("Note not found"));
+      return next(ApiError.badRequest('Note not found'));
     }
     note.homeHidden = !note.homeHidden;
     await note.save();
-    return res.json("ok");
+    return res.json('ok');
   }
 
   async reorderNotes(
@@ -210,12 +210,12 @@ class NotesController {
       for (const note of notes) {
         const noteDB = await Note.findByPk(note.id);
         if (!note) {
-          return next(ApiError.badRequest("Note not found"));
+          return next(ApiError.badRequest('Note not found'));
         }
         noteDB.sortOrder = note.sortOrder;
         await noteDB.save();
       }
-      return res.json("ok");
+      return res.json('ok');
     } catch (err) {
       console.log(err);
       next(ApiError.badRequest(err));
@@ -227,14 +227,14 @@ class NotesController {
     next: NextFunction,
   ) {
     const { noteId, newParentId } = req.body;
-    console.log("req.body", req.body);
+    console.log('req.body', req.body);
     const note = await Note.findByPk(noteId);
     if (!note) {
-      return next(ApiError.badRequest("Note not found"));
+      return next(ApiError.badRequest('Note not found'));
     }
     note.parentId = newParentId;
     await note.save();
-    return res.json("ok");
+    return res.json('ok');
   }
 }
 

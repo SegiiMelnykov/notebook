@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
 export type UserType = {
   id?: number;
   email: string;
   password: string;
+  notesPerPage: number;
   createdAt?: Date;
   updatedAt?: Date;
 };

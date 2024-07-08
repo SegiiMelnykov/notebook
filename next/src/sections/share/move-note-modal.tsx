@@ -1,7 +1,7 @@
 import { CustomDialog } from '@/components/custom-dialog';
 import { LoadingButton } from '@mui/lab';
 import { useGetNotesQuery, useMoveNoteMutation } from '@/store/notes/api';
-import { pageLimit } from '@/utils/consts';
+import { perPageLimit } from '@/utils/consts';
 import { useState } from 'react';
 import { Button, Card, Stack, Typography } from '@mui/material';
 
@@ -17,7 +17,7 @@ export default function MoveNote({ onclose, noteId }: Props) {
   const [prevParentId, setPrevParentId] = useState<string[]>(['']);
   const [page, setPage] = useState(1);
   const { data, isSuccess, refetch } = useGetNotesQuery({
-    limit: pageLimit,
+    limit: perPageLimit,
     page: page,
     filter: 'active',
     parentId: parentId,

@@ -3,6 +3,7 @@ export type TNote = {
   parentId: string;
   title: string;
   content: string;
+  notesPerPage?: number;
   createdAt: string;
   updatedAt: string;
   completed: boolean;
@@ -14,7 +15,7 @@ export type TNote = {
 
 export type TNoteCreate = Omit<
   TNote,
-  "id" | "createdAt" | "updatedAt" | "userId" | "deletedAt"
+  'id' | 'createdAt' | 'updatedAt' | 'userId' | 'deletedAt'
 >;
 
 export type TReorderItem = {

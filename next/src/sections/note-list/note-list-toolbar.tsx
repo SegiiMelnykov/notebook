@@ -3,6 +3,7 @@ import {
   MenuItem,
   Select,
   Stack,
+  TextField,
   useMediaQuery,
 } from '@mui/material';
 import { TFilter } from '@/types/notes';
@@ -10,7 +11,11 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useEffect, useState } from 'react';
-import { pageLimit, filter as pageFilter } from '@/utils/consts';
+import {
+  perPageLimit,
+  filter as pageFilter,
+  notesPerPageOptions,
+} from '@/utils/consts';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import { useAppSelector } from '@/hooks/use-redux';
@@ -29,15 +34,13 @@ export default function NoteListTollbar({ isChild = false }: Props) {
   const isMobile = useMediaQuery('(max-width:768px)');
   const { filterToggle } = useAppSelector((state) => state.note);
   const { toggleFilter } = useStoreActions();
-  const [openFilter, setOpenFilter] = useState(false);
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [limit, setLimit] = useState(searchParams.get('limit') ?? pageLimit);
+  const [limit, setLimit] = useState(searchParams.get('limit') ?? perPageLimit);
   const [filter, setFilter] = useState<TFilter>(
     (searchParams.get('filter') as TFilter) ?? pageFilter,
   );
-  const limitArr = [5, 10, 20, 30];
   const filterArr = ['all', 'active', 'completed', 'deleted'];
 
   const handleChange = (name: string, value: string | number) => {
@@ -47,7 +50,7 @@ export default function NoteListTollbar({ isChild = false }: Props) {
     router.push(pathname + '?' + newSearchParams);
   };
   useEffect(() => {
-    setLimit(searchParams.get('limit') ?? pageLimit);
+    setLimit(searchParams.get('limit') ?? perPageLimit);
     setFilter((searchParams.get('filter') as TFilter) ?? pageFilter);
   }, [searchParams]);
 
@@ -62,9 +65,14 @@ export default function NoteListTollbar({ isChild = false }: Props) {
         >
           <Box sx={{ minWidth: 200 }}>
             <FormControl fullWidth>
-              <InputLabel>Group</InputLabel>
-              <Select
+              <TextField
+                select
+                fullWidth
+                SelectProps={{
+                  sx: { textTransform: 'capitalize' },
+                }}
                 size='small'
+                label='Group'
                 value={filter}
                 onChange={(e) => handleChange('filter', e.target.value)}
               >
@@ -73,23 +81,28 @@ export default function NoteListTollbar({ isChild = false }: Props) {
                     {item}
                   </MenuItem>
                 ))}
-              </Select>
+              </TextField>
             </FormControl>
           </Box>
           <Box sx={{ minWidth: 200 }}>
             <FormControl fullWidth>
-              <InputLabel>Limit</InputLabel>
-              <Select
+              <TextField
+                select
+                fullWidth
+                SelectProps={{
+                  sx: { textTransform: 'capitalize' },
+                }}
                 size='small'
                 value={limit}
+                label='Limit'
                 onChange={(e) => handleChange('limit', +e.target.value)}
               >
-                {limitArr.map((item) => (
+                {notesPerPageOptions.map((item) => (
                   <MenuItem key={item} value={item}>
                     {item}
                   </MenuItem>
                 ))}
-              </Select>
+              </TextField>
             </FormControl>
           </Box>
         </Stack>

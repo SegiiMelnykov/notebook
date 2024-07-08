@@ -1,37 +1,40 @@
 version: '3'
 
 services:
-  frontend:
-    image: bstashchuk/time-app-frontend-dev
+  next:
+    image: me1a/notebook-next:latest
     restart: always
-    ports:
-      - '3000:3000'
   api:
-    image: bstashchuk/time-app-api-dev
-    restart: always
-    ports:
-      - '5555:5000'
+    image: me1a/notebook-api:latest
     depends_on:
-      - mysql
+      - postgres
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PORT: '3306'
-      MYSQL_PASSWORD: password
-      MYSQL_DB: time_db
-  mysql:
-    image: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: time_db
-    volumes:
-      - mysql_data_pub:/var/lib/mysql
+      SECRET_KEY: random_secret_key_65478989_4324324
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PORT: '5432'
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
   adminer:
     image: adminer
     restart: always
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_notebook_data:/var/lib/postgresql/data
+  nginx:
+    image: nginx
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - '8888:8080'
+      - '9000:9000'
+    depends_on:
+      - api
+      - adminer
 
 volumes:
-  mysql_data_pub:
+  postgres_notebook_data:

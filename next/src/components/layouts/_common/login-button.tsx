@@ -30,13 +30,26 @@ export default function LoginButton({ sx }: Props) {
     user ? handleLogout() : router.push(paths.auth.login);
   };
   return (
-    <Button
-      onClick={handleClick}
-      variant='outlined'
-      sx={{ mr: 1, ...sx }}
-      size={mdUp ? 'medium' : 'small'}
-    >
-      {user ? 'Log out' : 'Log in'}
-    </Button>
+    <>
+      {user ? (
+        <Button
+          onClick={handleClick}
+          variant='outlined'
+          sx={{ mr: 1, ...sx }}
+          size={mdUp ? 'medium' : 'small'}
+        >
+          Log out
+        </Button>
+      ) : (
+        <Button
+          onClick={handleClick}
+          variant='outlined'
+          sx={{ mr: 1, ...sx }}
+          size={mdUp ? 'medium' : 'small'}
+        >
+          Log in
+        </Button>
+      )}
+    </>
   );
 }
