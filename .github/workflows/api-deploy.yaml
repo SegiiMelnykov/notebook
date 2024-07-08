@@ -70,7 +70,7 @@ jobs:
       - name: Deploy application
         run: |
           ssh -T root@${{ secrets.DIGITALOCEAN_HOST }} << 'EOF'
-            cd /var/www/test
+            cd /var/www/notebook.me1a.space
             docker-compose -f docker-compose.pub.yml down
             docker-compose -f docker-compose.pub.yml pull
             docker-compose -f docker-compose.pub.yml up -d

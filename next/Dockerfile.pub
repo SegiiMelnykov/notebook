@@ -29,4 +29,4 @@ EXPOSE 3000
 COPY --from=build /app/build ./build
 
 # Specify the command to serve the built application
-CMD ["npm", "run", "start"] 
+CMD ["npm", "run", "start"]  

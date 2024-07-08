@@ -28,6 +28,6 @@ jobs:
       - name: Update docker compose file
         run: |
           ssh -T root@${{ secrets.DIGITALOCEAN_HOST }} << 'EOF'
-            cd /var/www/test
+            cd /var/www/notebook.me1a.space
             git pull
           EOF
