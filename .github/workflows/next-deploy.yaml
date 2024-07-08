@@ -35,7 +35,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./next
-        run: yarn install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
