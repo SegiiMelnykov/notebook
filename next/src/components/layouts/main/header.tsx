@@ -37,6 +37,7 @@ export default function Header() {
   return (
     <AppBar>
       <Toolbar
+        data-cy='header'
         disableGutters
         sx={{
           height: {
@@ -47,10 +48,8 @@ export default function Header() {
             easing: theme.transitions.easing.easeInOut,
             duration: theme.transitions.duration.shorter,
           }),
+          background: 'white',
           ...(offsetTop && {
-            ...bgBlur({
-              color: theme.palette.background.default,
-            }),
             height: {
               md: HEADER.H_DESKTOP_OFFSET,
             },
